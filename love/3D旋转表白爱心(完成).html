@@ -1,0 +1,127 @@
+<!doctype html><!--声明文档类型：html-->
+<html lang="en">
+	<head><!--头部-->
+		<meta charset="UTF-8"><!--字符编码:utf-8国际编码-->
+		<meta name="Keywords" content="关键词1,关键词2"><!--关键词-->
+		<meta name="Description" content="描述"><!--描述-->
+		<title>3D旋转表白爱心</title><!--网页标题-->
+		<style type="text/css">
+			body{
+				background:#000;/*背景颜色*/
+			}
+			#heart3d{
+				position:relative;
+				width:100px;
+				height:160px;
+				/*border:2px solid red;
+				border-left:0;0/none 低版本的IE浏览器不兼容none
+				border-bottom:0;*/
+				margin:100px auto;
+				/*
+					顺序:顺时针的方向 左上 右上 右下 左下
+					border-radius:50% 40% 30% 10%
+
+					斜杠前面是水平方向 斜杠后面是竖直方向
+				*/
+				/*border-radius:50% 40% 30% 10%/10% 30% 40% 50%;css3圆角属性
+				border-radius:50% 50% 0/40% 50% 0;
+				transform:rotateZ(45deg);*/
+				/*css3自定义动画:动画的名称rot 时间 匀速 无限重复*/
+				transform-style:preserve-3d;
+				animation:rot 10s linear infinite;
+			}
+			/*动画的关键帧*/
+			@keyframes rot{
+				from{transform:rotateY(0deg) rotateX(0deg)}
+				to{transform:rotateY(360deg) rotateX(360deg)}
+			}
+			#heart3d div.heart{
+				position:absolute;
+				left:0;
+				top:0;
+				width:100px;
+				height:160px;
+				border:2px solid red;
+				border-left:0;/*0/none 低版本的IE浏览器不兼容none*/
+				border-bottom:0;
+				border-radius:50% 50% 0/40% 50% 0;
+				
+			}
+			#cube{/* # id选择器*/
+				position:relative;/*相对定位:参考物*/
+				width:50px;/*宽度*/
+				height:50px;/*高度*/
+				transform-style:preserve-3d;
+				transform:translateX(25px) translateY(52px) translateZ(25px);
+			}
+			#cube div{
+				position:absolute;/*绝对定位*/
+				left:0;/*距离参考物左端的距离*/
+				top:0;/*距离参考物上端的距离*/
+				width:50px;
+				height:50px;
+			}
+			/*css3结构选择器*/
+			#cube div:nth-child(1){
+				top:-50px;
+				/*默认的旋转中心:X轴 Y轴 Z轴
+				transform-origin:50% 50% 0;*/
+				transform-origin:bottom;
+				/*css3变换:围绕X轴旋转90度*/
+				transform:rotateX(90deg);
+			}
+			#cube div:nth-child(2){
+				top:50px;
+				transform-origin:top;
+				transform:rotateX(-90deg);
+			}
+			#cube div:nth-child(3){
+				left:-50px;
+				transform-origin:right;
+				transform:rotateY(-90deg);
+			}
+			#cube div:nth-child(4){
+				left:50px;
+				transform-origin:left;
+				transform:rotateY(90deg);
+			}
+			#cube div:nth-child(6){
+				/*沿着Z轴向里移动*/
+				transform:translateZ(-50px);
+			}
+			#cube div img{
+				width:50px;
+				height:50px;
+			}
+		</style>
+	</head>
+	<body><!--身体-->
+		<div id="heart3d">
+			<div id="cube"><!--id="自定义的名称" -->
+				<div><img src="images/1.jpg"></div>
+				<div><img src="images/2.jpg"></div>
+				<div><img src="images/3.jpg"></div>
+				<div><img src="images/4.jpg"></div>
+				<div><img src="images/5.jpg"></div>
+				<div><img src="images/6.jpg"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//获取父元素
+			/*
+				在document文档里面by通过id名get获取Element元素
+				document.getElementById("heart3d")
+			*/
+			var heart3d = document.getElementById("heart3d");
+			for (var i=0;i<36 ;i++ )
+			{
+				//创建一个div标签 用oDiv这个变量保存
+				var oDiv = document.createElement("div");
+				oDiv.className = "heart";
+				oDiv.style.transform = "rotateY("+i*10+"deg) rotateZ(45deg) translateX(30px)";
+				//把生成的div添加到父元素盒子
+				heart3d.appendChild(oDiv);
+			}
+		</script>
+	</body>
+</html>
